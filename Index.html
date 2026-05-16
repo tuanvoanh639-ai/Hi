@@ -1,0 +1,318 @@
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Garena VIP - Cổng Rút Kim Cương Nội Bộ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap');
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #020617;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+        .garena-red { background-color: #ed1c24; }
+        .garena-gradient { background: linear-gradient(135deg, #ed1c24 0%, #991b1b 100%); }
+        .hidden-section { display: none !important; }
+        .glass {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .money-text {
+            background: linear-gradient(to bottom, #fff 20%, #ffd700 50%, #b8860b 80%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: #ed1c24;
+            transition: width 0.3s linear;
+        }
+        @keyframes pulse-yellow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(0.98); }
+        }
+        .status-waiting {
+            animation: pulse-yellow 2s infinite;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="glass text-white py-4 px-6 shadow-2xl flex justify-between items-center sticky top-0 z-[100] border-b border-white/5">
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="location.reload()">
+            <div class="garena-red p-1.5 rounded-lg shadow-lg">
+                <svg width="24" height="24" viewBox="0 0 100 100" fill="white"><path d="M10 20 L90 20 L90 80 L10 80 Z"/></svg>
+            </div>
+            <div class="flex flex-col leading-none">
+                <span class="text-xl font-black italic tracking-tighter uppercase">GARENA</span>
+                <span class="text-[7px] font-bold tracking-[0.3em] text-red-500 uppercase">Internal System</span>
+            </div>
+        </div>
+
+        <div id="nav-guest" class="flex items-center space-x-2">
+            <button onclick="openAuthModal('login')" class="text-white font-bold text-[10px] uppercase px-4 py-2 hover:text-red-500 transition">Đăng nhập</button>
+            <button onclick="openAuthModal('register')" class="garena-gradient text-white px-6 py-2 rounded-full font-black text-[10px] uppercase shadow-lg transition hover:scale-105">Đăng ký</button>
+        </div>
+
+        <div id="nav-user" class="hidden flex items-center space-x-4">
+            <div class="text-right hidden sm:block">
+                <p id="nav-username" class="text-[10px] font-black uppercase italic text-white">ADMIN</p>
+                <p id="nav-user-balance" class="text-[11px] text-yellow-400 font-bold">0 VNĐ</p>
+            </div>
+            <div class="w-10 h-10 rounded-full border-2 border-red-600 p-0.5">
+                <img src="https://img.upanh.tv/2024/05/16/1000003091.jpg" class="w-full h-full object-cover rounded-full">
+            </div>
+        </div>
+    </header>
+
+    <!-- Trang Chủ -->
+    <main id="home-page" class="flex-grow animate__animated animate__fadeIn flex flex-col items-center justify-center text-center px-4 py-20">
+        <div class="max-w-4xl">
+            <span class="inline-block bg-red-600/10 text-red-500 text-[10px] font-black uppercase tracking-[0.4em] px-4 py-2 rounded-full mb-6 border border-red-500/20">Cổng Quản Trị Kim Cương</span>
+            <h1 class="text-6xl md:text-8xl font-black text-white italic uppercase leading-tight mb-8 tracking-tighter">HỆ THỐNG <br><span class="text-red-600">NỘI BỘ</span></h1>
+            <p class="text-slate-400 text-lg mb-12 max-w-xl mx-auto">Sự kiện rút Kim Cương nội bộ dành riêng cho cộng tác viên và nhân viên Garena. Vui lòng tạo tài khoản hoặc đăng nhập để tham gia.</p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button onclick="openAuthModal('register')" class="garena-gradient text-white px-12 py-6 rounded-2xl font-black uppercase tracking-widest text-sm shadow-2xl hover:scale-105 transition-all">Đăng ký tham gia</button>
+                <button onclick="openAuthModal('login')" class="glass text-white px-12 py-6 rounded-2xl font-black uppercase tracking-widest text-sm hover:bg-white/10 transition-all border border-white/10">Đăng nhập</button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Dashboard -->
+    <main id="dashboard-page" class="hidden-section flex-grow max-w-6xl mx-auto py-10 px-4 w-full animate__animated animate__fadeIn">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-1 space-y-6">
+                <div class="glass rounded-[3rem] p-8 text-center border-b-4 border-red-600 shadow-2xl">
+                    <div class="w-24 h-24 rounded-full mx-auto mb-6 border-4 border-red-600 p-1">
+                        <img src="https://img.upanh.tv/2024/05/16/1000003091.jpg" class="w-full h-full object-cover rounded-full">
+                    </div>
+                    <h3 id="dash-user" class="text-xl font-black text-white italic uppercase">---</h3>
+                    <div class="bg-black/40 rounded-2xl p-6 mt-6 border border-white/5">
+                        <p class="text-[9px] text-gray-500 uppercase font-black mb-1">Ví nội bộ</p>
+                        <p id="dash-balance" class="text-3xl font-black money-text italic">0 VNĐ</p>
+                    </div>
+                </div>
+
+                <div class="glass rounded-[2rem] p-6 shadow-xl border border-white/5">
+                    <h4 class="text-[9px] font-black text-red-500 uppercase tracking-[0.3em] mb-4 flex items-center">
+                        <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse mr-2"></span> Đang chờ duyệt (24h)
+                    </h4>
+                    <div id="system-logs" class="space-y-3 h-72 overflow-hidden"></div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-2">
+                <div class="glass rounded-[3rem] shadow-2xl overflow-hidden border border-white/5">
+                    <div class="flex bg-white/5 border-b border-white/5">
+                        <div class="flex-1 py-5 font-black text-[10px] uppercase text-red-500 text-center border-b-2 border-red-600 tracking-widest">Rút Kim Cương</div>
+                    </div>
+
+                    <div id="withdraw-section" class="p-10">
+                        <div id="w-form" class="space-y-8">
+                            <div class="space-y-2">
+                                <label class="text-[9px] font-black text-gray-500 uppercase ml-2">UID Người Nhận (ID Free Fire)</label>
+                                <input type="number" id="uid-input" class="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-5 focus:border-red-600 outline-none font-bold text-xl text-white" placeholder="ID nhận Kim Cương">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="text-[9px] font-black text-gray-500 uppercase ml-2">Chọn gói rút</label>
+                                <select id="pkg-select" class="w-full bg-black/40 border border-white/10 rounded-2xl px-6 py-5 text-white font-black appearance-none cursor-pointer">
+                                    <option value="1.000" data-p="20000">1.000 Kim Cương - 20.000đ</option>
+                                    <option value="5.000" data-p="100000">5.000 Kim Cương - 100.000đ</option>
+                                    <option value="10.000" data-p="200000">10.000 Kim Cương - 200.000đ</option>
+                                </select>
+                            </div>
+                            <button onclick="processWithdraw()" class="w-full garena-gradient text-white py-6 rounded-2xl font-black uppercase tracking-[0.4em] shadow-xl hover:scale-[1.01] transition-all text-lg">Xác nhận rút</button>
+                        </div>
+
+                        <div id="w-loading" class="hidden-section py-16 text-center">
+                            <div class="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto mb-8"></div>
+                            <h4 class="text-2xl font-black text-white italic uppercase">Đang đồng bộ ID...</h4>
+                            <div class="w-full h-2 bg-black/40 rounded-full mt-10 overflow-hidden"><div id="p-bar" class="progress-bar"></div></div>
+                        </div>
+
+                        <div id="w-result" class="hidden-section animate__animated animate__zoomIn text-center">
+                            <div class="w-20 h-20 bg-yellow-500/10 text-yellow-500 rounded-full mx-auto mb-6 flex items-center justify-center text-4xl status-waiting">⏳</div>
+                            <h2 class="text-3xl font-black text-white uppercase italic mb-4">Rút Thành Công</h2>
+                            <div class="bg-black/40 p-8 rounded-[2rem] border border-yellow-500/20 mb-10 text-left space-y-4">
+                                <div class="flex justify-between border-b border-white/5 pb-2">
+                                    <span class="text-[10px] font-black text-gray-500 uppercase">Gói rút</span>
+                                    <span id="res-kc" class="text-sm font-black text-red-500">---</span>
+                                </div>
+                                <div class="flex justify-between border-b border-white/5 pb-2">
+                                    <span class="text-[10px] font-black text-gray-500 uppercase">ID Game</span>
+                                    <span id="res-id" class="text-sm font-black text-white">---</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-[10px] font-black text-gray-500 uppercase">Trạng Thái</span>
+                                    <span class="text-sm font-black text-yellow-500 uppercase italic">Chờ Duyệt (24h)</span>
+                                </div>
+                            </div>
+                            <button onclick="resetWithdraw()" class="w-full bg-white text-black py-5 rounded-2xl font-black uppercase tracking-widest text-sm">Quay về</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Auth Modal (Login & Register) -->
+    <div id="auth-modal" class="fixed inset-0 z-[200] bg-black/95 backdrop-blur-xl hidden flex items-center justify-center p-4">
+        <div class="bg-slate-900 w-full max-w-sm rounded-[3rem] shadow-2xl border border-white/10 p-10 animate__animated animate__zoomIn">
+            
+            <!-- Tab Login -->
+            <div id="login-form">
+                <h2 class="text-3xl font-black text-white italic uppercase mb-8 text-center tracking-tighter">Đăng Nhập</h2>
+                <div class="space-y-4">
+                    <input type="text" id="l-user" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 text-white font-bold outline-none focus:border-red-600" placeholder="Tên tài khoản">
+                    <input type="password" id="l-pass" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 text-white font-bold outline-none focus:border-red-600" placeholder="Mật khẩu nội bộ">
+                    <button onclick="handleLogin()" class="w-full garena-red text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-2xl">Vào hệ thống</button>
+                    <p class="text-[10px] text-gray-500 text-center">Chưa có tài khoản? <span class="text-red-500 font-bold cursor-pointer underline" onclick="toggleAuth('register')">Đăng ký ngay</span></p>
+                </div>
+            </div>
+
+            <!-- Tab Register (Ảo) -->
+            <div id="register-form" class="hidden-section">
+                <h2 class="text-3xl font-black text-white italic uppercase mb-8 text-center tracking-tighter">Đăng Ký</h2>
+                <div class="space-y-4">
+                    <input type="text" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 text-white font-bold outline-none" placeholder="Tài khoản mong muốn">
+                    <input type="password" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 text-white font-bold outline-none" placeholder="Mật khẩu">
+                    <input type="text" class="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-5 text-white font-bold outline-none" placeholder="Mã CTV (Nếu có)">
+                    <button onclick="handleRegister()" class="w-full garena-gradient text-white py-5 rounded-2xl font-black uppercase tracking-widest text-xs shadow-2xl">Tạo tài khoản</button>
+                    <p class="text-[10px] text-gray-500 text-center">Đã có tài khoản? <span class="text-red-500 font-bold cursor-pointer underline" onclick="toggleAuth('login')">Đăng nhập</span></p>
+                </div>
+            </div>
+
+            <p id="auth-err" class="text-red-500 text-[9px] font-black uppercase mt-4 hidden text-center italic"></p>
+            <button onclick="closeAuthModal()" class="w-full mt-4 text-gray-600 text-[10px] uppercase font-bold tracking-widest">Đóng</button>
+        </div>
+    </div>
+
+    <script>
+        const ADMIN_ACC = "hihi";
+        const ADMIN_PASS = "Vovantien";
+        let balance = 100000000;
+
+        function openAuthModal(type) {
+            document.getElementById('auth-modal').classList.remove('hidden');
+            toggleAuth(type);
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.add('hidden');
+        }
+
+        function toggleAuth(type) {
+            const isLogin = type === 'login';
+            document.getElementById('login-form').classList.toggle('hidden-section', !isLogin);
+            document.getElementById('register-form').classList.toggle('hidden-section', isLogin);
+            document.getElementById('auth-err').classList.add('hidden');
+        }
+
+        function handleLogin() {
+            const u = document.getElementById('l-user').value.trim();
+            const p = document.getElementById('l-pass').value;
+            const err = document.getElementById('auth-err');
+
+            if (u === ADMIN_ACC && p === ADMIN_PASS) {
+                document.getElementById('auth-modal').classList.add('hidden');
+                document.getElementById('home-page').classList.add('hidden-section');
+                document.getElementById('nav-guest').classList.add('hidden-section');
+                document.getElementById('nav-user').classList.remove('hidden');
+                document.getElementById('dashboard-page').classList.remove('hidden-section');
+                document.getElementById('dash-user').innerText = "NV: " + u.toUpperCase();
+                updateBal();
+                initVirtualLogs();
+            } else {
+                err.innerText = "Lỗi: Tài khoản không có quyền truy cập cổng VIP!";
+                err.classList.remove('hidden');
+            }
+        }
+
+        function handleRegister() {
+            const err = document.getElementById('auth-err');
+            err.innerText = "Thông báo: Hệ thống đăng ký đang bảo trì. Vui lòng liên hệ Admin để cấp tài khoản!";
+            err.classList.remove('hidden');
+        }
+
+        function updateBal() {
+            const txt = balance.toLocaleString() + " VNĐ";
+            document.getElementById('nav-user-balance').innerText = txt;
+            document.getElementById('dash-balance').innerText = txt;
+        }
+
+        function processWithdraw() {
+            const uid = document.getElementById('uid-input').value;
+            const kc = document.getElementById('pkg-select').value;
+            const price = parseInt(document.getElementById('pkg-select').options[document.getElementById('pkg-select').selectedIndex].dataset.p);
+            
+            if(!uid) return alert("Vui lòng nhập UID!");
+            if(balance < price) return alert("Số dư không đủ!");
+
+            document.getElementById('w-form').classList.add('hidden-section');
+            document.getElementById('w-loading').classList.remove('hidden-section');
+
+            let p = 0;
+            const timer = setInterval(() => {
+                p += 5;
+                document.getElementById('p-bar').style.width = p + "%";
+                if(p >= 100) {
+                    clearInterval(timer);
+                    balance -= price;
+                    updateBal();
+                    showResult(kc, uid);
+                }
+            }, 100);
+        }
+
+        function showResult(kc, id) {
+            document.getElementById('w-loading').classList.add('hidden-section');
+            document.getElementById('w-result').classList.remove('hidden-section');
+            document.getElementById('res-kc').innerText = kc + " Kim Cương";
+            document.getElementById('res-id').innerText = id;
+        }
+
+        function resetWithdraw() {
+            document.getElementById('w-result').classList.add('hidden-section');
+            document.getElementById('w-form').classList.remove('hidden-section');
+            document.getElementById('uid-input').value = "";
+            document.getElementById('p-bar').style.width = "0%";
+        }
+
+        function initVirtualLogs() {
+            const logs = document.getElementById('system-logs');
+            const names = ["Quang_NV", "Lan_Garena", "Tuan_Dev", "Bich_CTV", "Minh_Admin", "Hoang_Mod"];
+            const uids = ["1129304", "8821903", "4410293", "5512039", "2293840", "7712039"];
+            const pks = ["1.000", "5.000", "10.000"];
+
+            setInterval(() => {
+                const name = names[Math.floor(Math.random()*names.length)];
+                const uid = uids[Math.floor(Math.random()*uids.length)];
+                const pk = pks[Math.floor(Math.random()*pks.length)];
+                
+                const div = document.createElement('div');
+                div.className = "bg-white/5 p-4 rounded-2xl border-l-2 border-yellow-500 animate__animated animate__slideInUp mb-3";
+                div.innerHTML = `
+                    <div class="flex justify-between mb-1">
+                        <span class="text-[9px] font-black text-white uppercase italic">${name}</span>
+                        <span class="text-[8px] font-black text-yellow-500 status-waiting">CHỜ DUYỆT</span>
+                    </div>
+                    <p class="text-[8px] text-gray-500 uppercase tracking-tighter italic">Đã rút ${pk} KC -> ID: ${uid}</p>
+                `;
+                logs.prepend(div);
+                if(logs.children.length > 5) logs.removeChild(logs.lastChild);
+            }, 5000);
+        }
+    </script>
+</body>
+</html>
+
+```
