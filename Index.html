@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CỔNG NẠP KIM CƯƠNG FREE FIRE LẬU - X10 GIÁ TRỊ</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #141e30, #243b55);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+        .container {
+            max-width: 450px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 25px #ff4500;
+            margin: 50px auto;
+            border: 2px solid #ff4500;
+        }
+        h1 {
+            color: #ff4500;
+            text-transform: uppercase;
+            font-size: 24px;
+            text-shadow: 0 0 10px #ff4500;
+            margin-bottom: 5px;
+        }
+        .sub-title {
+            color: #00ffcc;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #ddd;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ff4500;
+            border-radius: 8px;
+            background: #1a1a1a;
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+        input:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 8px #ff4500;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(90deg, #ff4500, #ff8c00);
+            border: none;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(255, 69, 0, 0.4);
+            transition: 0.3s;
+            margin-top: 10px;
+        }
+        .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 25px #ff4500;
+        }
+        .footer-note {
+            font-size: 12px;
+            color: #888;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>NẠP KIM CƯƠNG FF LẬU</h1>
+        <div class="sub-title">🔥 SỰ KIỆN KHUYẾN MÃI X10 KIM CƯƠNG DÀNH CHO ADMIN 🔥</div>
+        
+        <form id="napTheForm" onsubmit="xuLyNap(event)">
+            <div class="form-group">
+                <label for="uid">Nhập UID Free Fire:</label>
+                <input type="number" id="uid" placeholder="Ví dụ: 123456789" required>
+            </div>
+
+            <div class="form-group">
+                <label for="loaithe">Chọn Loại Thẻ:</label>
+                <select id="loaithe">
+                    <option value="viettel">Viettel</option>
+                    <option value="mobifone">Mobifone</option>
+                    <option value="vinaphone">Vinaphone</option>
+                    <option value="garena">Thẻ Garena (Lậu)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="menhgia">Chọn Mệnh Giá (Nhận X10):</label>
+                <select id="menhgia">
+                    <option value="50000">50.000 VNĐ = 4.500 Kim Cương</option>
+                    <option value="100000">100.000 VNĐ = 10.000 Kim Cương</option>
+                    <option value="200000">200.000 VNĐ = 25.000 Kim Cương</option>
+                    <option value="500000">500.000 VNĐ = 70.000 Kim Cương</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="seri">Mã Seri:</label>
+                <input type="text" id="seri" placeholder="Nhập số seri trên thẻ" required>
+            </div>
+
+            <div class="form-group">
+                <label for="mathe">Mã Thẻ:</label>
+                <input type="text" id="mathe" placeholder="Nhập mã cào ẩn" required>
+            </div>
+
+            <button type="submit" class="btn-submit">XÁC NHẬN NẠP NGAY</button>
+        </form>
+
+        <p class="footer-note">*Lưu ý: Trang web này được dựng ra để test hệ thống nội bộ.*</p>
+    </div>
+
+    <script>
+        function xuLyNap(event) {
+            event.preventDefault(); // Ngăn trang web bị tải lại
+            
+            const uid = document.getElementById('uid').value;
+            const menhgia = document.getElementById('menhgia').options[document.getElementById('menhgia').selectedIndex].text;
+            
+            // Hiện thông báo fake cực ngầu để đi khè bạn bè
+            alert(`[HỆ THỐNG LẬU] Đang gửi yêu cầu...\n\nĐã nhận diện UID: ${uid}\nGói nạp: ${menhgia}\n\nTrạng thái: Đang hack kim cương vào tài khoản. Vui lòng chờ 3-5 phút!`);
+        }
+    </script>
+
+</body>
+</html>
